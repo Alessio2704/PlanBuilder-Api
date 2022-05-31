@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
+const ClientModel = require("./Client")
 
 const userSchema = new mongoose.Schema({
 
     name: {
         type: String,
         required: true,
-        min: 6
     },
     email: {
         type: String,
@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema({
     dateSignedIn: {
         type: Date,
         default: Date.now
+    },
+    clients: {
+        type: [ClientModel]
     }
 });
 
