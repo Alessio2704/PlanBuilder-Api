@@ -20,10 +20,6 @@ const userSchema = new mongoose.Schema({
         min: 6,
         max: 1024
     },
-    dateSignedIn: {
-        type: Date,
-        default: Date.now
-    },
     clients: {
         type: [ClientModel]
     }
