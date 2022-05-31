@@ -2,7 +2,7 @@ const router = require("express").Router();
 const verify = require("./verifyToken");
 const User = require("../model/User");
 
-router.get("/info/:id", verify, async (req, res) => {
+router.post("/info/:id", verify, async (req, res) => {
     try {
         const userDB = await User.findOne({ _id: req.params.id });
         
