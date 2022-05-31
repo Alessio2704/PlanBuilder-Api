@@ -13,6 +13,7 @@ router.post("/info/:id", verify, async (req, res) => {
             const clientResult = {
                 "name":userDB.clients[i].name,
                 "surname":userDB.clients[i].surname,
+                "gender":userDB.clients[i].gender,
                 "email":userDB.clients[i].email,
                 "age":userDB.clients[i].age,
                 "phoneNumber":userDB.clients[i].phoneNumber,
