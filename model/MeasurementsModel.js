@@ -29,12 +29,6 @@ const MeasurementsModelSchema = new mongoose.Schema({
     middleThighSx: {
         type: String
     },
-    hipDx: {
-        type: String
-    },
-    hipSx: {
-        type: String
-    },
     flanks: {
         type: String
     },
