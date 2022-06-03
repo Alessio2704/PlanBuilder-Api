@@ -38,7 +38,6 @@ router.put("/info/:id", verify, (req, res) => {
                 }
                 result.push(measurementResult);
             }
-            console.log(result);
             res.send(result);
 
         } catch(err) {
@@ -59,6 +58,7 @@ router.put("/data/:id", verify, (req, res) => {
 
             console.log(client);
 
+            console.log(req.name);
             console.log(req.date);
             
             const measurement = client.measurements.filter(function (measurementDB) {
