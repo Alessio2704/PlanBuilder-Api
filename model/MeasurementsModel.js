@@ -64,7 +64,7 @@ const MeasurementsModelSchema = new mongoose.Schema({
     },
     date: {
         type: String,
-        default: Date.now.toString()
+        default: Date.now
     }
 });
 
