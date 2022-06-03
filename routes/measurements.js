@@ -12,7 +12,6 @@ router.post("/add/:id", verify, (req, res) => {
             
             console.log(req.body);
             console.log(client);
-            console.log(clientDB)
 
             const newMeasurement = {
                 weight: req.body.weight,
