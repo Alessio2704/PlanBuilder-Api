@@ -43,6 +43,7 @@ router.post("/add/:id", verify, (req, res) => {
             res.send({"message":"New measurement added succesfully"})
 
         } catch(err) {
+            console.log(err)
             res.send({"message":"Plan not found"});
         }
     });
