@@ -6,10 +6,14 @@ router.post("/add/:id", verify, (req, res) => {
 
     const user = User.findOne({_id:req.params.id}, function (err, user) {
         try {
-            const client = user.clients.filter(function (client) {
-                return client.name === req.body.name && client.surname === req.body.surname && client.phoneNumber === req.body.phoneNumber;
+            const client = user.clients.filter(function (clientDB) {
+                return clientDB.name === req.body.name && clientDB.surname === req.body.surname && clientDB.phoneNumber === req.body.phoneNumber;
             }).pop();
             
+            console.log(req.body);
+            console.log(client);
+            console.log(clientDB)
+
             const newMeasurement = {
                 weight: req.body.weight,
                 ankleDx: req.body.ankleDx,
@@ -32,7 +36,7 @@ router.post("/add/:id", verify, (req, res) => {
                 wristSx: req.body.wristSx,
             };
 
-            client.measurements.push(newMeasurement);
+            clientDB.measurements.push(newMeasurement);
 
             user.save();
 
