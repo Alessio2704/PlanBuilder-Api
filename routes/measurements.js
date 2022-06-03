@@ -34,8 +34,6 @@ router.put("/info/:id", verify, (req, res) => {
 
             for (i in client.measurements) {
 
-                console.log(typeof(client.measurements[i].weight));
-
                 const measurementResult = {
                     "date": client.measurements[i].date
                 }
@@ -57,17 +55,10 @@ router.put("/data/:id", verify, (req, res) => {
             const client = user.clients.filter(function (clientDB) {
                 return clientDB.name === req.body.name && clientDB.surname === req.body.surname && clientDB.phoneNumber === req.body.phoneNumber;
             }).pop();
-
-
-            console.log(client);
             
             const measurement = client.measurements.filter(function (measurementDB) {
                 return measurementDB.date === req.body.date;
             }).pop();
-
-
-            console.log(measurement);
-            console.log(measurement.weight);
 
             const result = {
                 weight: measurement.weight,
@@ -92,8 +83,6 @@ router.put("/data/:id", verify, (req, res) => {
                 wristSx: measurement.wristSx,
                 date: measurement.date
             }
-
-            console.log(result);
 
             res.send(result);
 
