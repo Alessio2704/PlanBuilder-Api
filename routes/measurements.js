@@ -90,6 +90,7 @@ router.put("/data/:id", verify, (req, res) => {
                 armSx: measurement.armSx,
                 wristDx: measurement.wristDx,
                 wristSx: measurement.wristSx,
+                date: measurement.date
             }
 
             console.log(result);
