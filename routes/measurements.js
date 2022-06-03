@@ -33,6 +33,9 @@ router.put("/info/:id", verify, (req, res) => {
             const result = [];
 
             for (i in client.measurements) {
+
+                console.log(typeof(client.measurements[i].date));
+
                 const measurementResult = {
                     "date": client.measurements[i].date
                 }
@@ -57,9 +60,6 @@ router.put("/data/:id", verify, (req, res) => {
 
 
             console.log(client);
-
-            console.log(req.body.name);
-            console.log(req.body.date);
             
             const measurement = client.measurements.filter(function (measurementDB) {
                 return measurementDB.date === req.body.date;
