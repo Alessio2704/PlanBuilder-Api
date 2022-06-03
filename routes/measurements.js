@@ -43,7 +43,7 @@ router.post("/add/:id", verify, (req, res) => {
 
         } catch(err) {
             console.log(err)
-            res.status(404).send({"message":"Plan not found"});
+            res.status(404).send({"message":"Unable to add measurement"});
         }
     });
 });
