@@ -61,6 +61,10 @@ router.put("/data/:id", verify, (req, res) => {
                 return measurementDB.date === req.body.date;
             }).pop();
 
+
+            console.log(measurement);
+            console.log(measurement.weight);
+
             const result = {
                 weight: measurement.weight,
                 ankleDx: measurement.ankleDx,
