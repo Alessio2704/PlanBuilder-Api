@@ -84,6 +84,7 @@ router.put("/data/:id", verify, (req, res) => {
                 wristSx: measurement.wristSx,
             }
 
+            console.log(result);
 
             res.send(result);
 
