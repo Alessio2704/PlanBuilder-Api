@@ -69,4 +69,3 @@ const MeasurementsModelSchema = new mongoose.Schema({
 });
 
 module.exports.measurementsModelSchema =  MeasurementsModelSchema;
-module.exports.measurementsModel = mongoose.model("MeasurementsModel", MeasurementsModelSchema);
