@@ -62,30 +62,30 @@ router.put("/data/:id", verify, (req, res) => {
             }).pop();
 
 
-            console.log(measurement);
-            console.log(measurement.weight);
+            console.log(measurement[0]);
+            console.log(measurement[0].weight);
 
             const result = {
-                weight: measurement.weight,
-                ankleDx: measurement.ankleDx,
-                ankleSx: measurement.ankleSx,
-                calfDx: measurement.calfDx,
-                calfSx: measurement.calfSx,
-                upperThighDx: measurement.upperThighDx,
-                upperThighSx: measurement.upperThighSx,
-                middleThighDx: measurement.middleThighDx,
-                middleThighSx: measurement.middleThighSx,
-                flanks: measurement.flanks,
-                lowerBellyButton: measurement.lowerBellyButton,
-                bellyButton: measurement.bellyButton,
-                waist: measurement.waist,
-                chest: measurement.chest,
-                shoulders: measurement.shoulders,
-                neck: measurement.neck,
-                armDx: measurement.armDx,
-                armSx: measurement.armSx,
-                wristDx: measurement.wristDx,
-                wristSx: measurement.wristSx,
+                weight: measurement[0].weight,
+                ankleDx: measurement[0].ankleDx,
+                ankleSx: measurement[0].ankleSx,
+                calfDx: measurement[0].calfDx,
+                calfSx: measurement[0].calfSx,
+                upperThighDx: measurement[0].upperThighDx,
+                upperThighSx: measurement[0].upperThighSx,
+                middleThighDx: measurement[0].middleThighDx,
+                middleThighSx: measurement[0].middleThighSx,
+                flanks: measurement[0].flanks,
+                lowerBellyButton: measurement[0].lowerBellyButton,
+                bellyButton: measurement[0].bellyButton,
+                waist: measurement[0].waist,
+                chest: measurement[0].chest,
+                shoulders: measurement[0].shoulders,
+                neck: measurement[0].neck,
+                armDx: measurement[0].armDx,
+                armSx: measurement[0].armSx,
+                wristDx: measurement[0].wristDx,
+                wristSx: measurement[0].wristSx,
             }
 
             console.log(result);
