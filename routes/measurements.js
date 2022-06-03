@@ -57,11 +57,32 @@ router.put("/data/:id", verify, (req, res) => {
             }).pop();
 
 
-            const result = client.measurements.filter(function (measurementDB) {
+            const measurement = client.measurements.filter(function (measurementDB) {
                 return measurementDB.date === req.body.date;
             }).pop();
 
-            console.log(result);
+            const result = {
+                weight: measurement.weight,
+                ankleDx: measurement.ankleDx,
+                ankleSx: measurement.ankleSx,
+                calfDx: measurement.calfDx,
+                calfSx: measurement.calfSx,
+                upperThighDx: measurement.upperThighDx,
+                upperThighSx: measurement.upperThighSx,
+                middleThighDx: measurement.middleThighDx,
+                middleThighSx: measurement.middleThighSx,
+                flanks: measurement.flanks,
+                lowerBellyButton: measurement.lowerBellyButton,
+                bellyButton: measurement.bellyButton,
+                waist: measurement.waist,
+                chest: measurement.chest,
+                shoulders: measurement.shoulders,
+                neck: measurement.neck,
+                armDx: measurement.armDx,
+                armSx: measurement.armSx,
+                wristDx: measurement.wristDx,
+                wristSx: measurement.wristSx,
+            }
 
 
             res.send(result);
