@@ -48,6 +48,31 @@ router.put("/info/:id", verify, (req, res) => {
     });
 });
 
+router.put("/data/:id", verify, (req, res) => {
+
+    const user = User.findOne({_id:req.params.id}, function (err, user) {
+        try {
+            const client = user.clients.filter(function (clientDB) {
+                return clientDB.name === req.body.name && clientDB.surname === req.body.surname && clientDB.phoneNumber === req.body.phoneNumber;
+            }).pop();
+
+
+            const result = client.measurements.filter(function (measurementDB) {
+                return measurementDB.date === req.body.date;
+            }).pop();
+
+            console.log(result);
+
+
+            res.send(result);
+
+        } catch(err) {
+            console.log(err)
+            res.status(404).send({"message":"Unable to get measurement"});
+        }
+    });
+});
+
 
 
 module.exports = router;
