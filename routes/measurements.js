@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const User = require("../model/User");
-const { MeasurementsModelSchema, MeasurementsModel} = require("../model/PublicPlan");
+const { MeasurementsModelSchema, MeasurementsModel} = require("../model/MeasurementsModel");
 const verify = require("./verifyToken");
 
 router.post("/add/:id", verify, (req, res) => {

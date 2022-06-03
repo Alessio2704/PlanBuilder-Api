@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { MeasurementsModelSchema, MeasurementsModel} = require("../model/PublicPlan");
+const { MeasurementsModelSchema, MeasurementsModel} = require("../model/MeasurementsModel");
 const SkinfoldsMeasurementsModel = require("./SkinfoldsModel");
 
 const clientSchema = new mongoose.Schema({
