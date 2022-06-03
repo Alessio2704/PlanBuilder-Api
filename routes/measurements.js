@@ -27,7 +27,7 @@ router.post("/add/:id", verify, (req, res) => {
                 lowerBellyButton: req.body.lowerBellyButton,
                 bellyButton: req.body.bellyButton,
                 waist: req.body.waist,
-                chest: req.req.body.chest,
+                chest: req.body.chest,
                 neck: req.body.neck,
                 armDx: req.body.armDx,
                 armSx: req.body.armSx,
