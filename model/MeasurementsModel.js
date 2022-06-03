@@ -68,4 +68,4 @@ const MeasurementsModelSchema = new mongoose.Schema({
     }
 });
 
-module.exports.measurementsModelSchema =  MeasurementsModelSchema;
+module.exports =  MeasurementsModelSchema;
