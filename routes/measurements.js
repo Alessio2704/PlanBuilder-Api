@@ -36,7 +36,7 @@ router.post("/add/:id", verify, (req, res) => {
                 wristSx: req.body.wristSx,
             };
 
-            clientDB.measurements.push(newMeasurement);
+            client.measurements.push(newMeasurement);
 
             user.save();
 
