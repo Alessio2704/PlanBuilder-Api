@@ -9,9 +9,6 @@ router.post("/add/:id", verify, (req, res) => {
             const client = user.clients.filter(function (clientDB) {
                 return clientDB.name === req.body.name && clientDB.surname === req.body.surname && clientDB.phoneNumber === req.body.phoneNumber;
             }).pop();
-            
-            console.log(req.body.weight);
-            console.log(client);
 
             const newMeasurement = {
                 weight: req.body.weight,
@@ -33,7 +30,10 @@ router.post("/add/:id", verify, (req, res) => {
                 armSx: req.body.armSx,
                 wristDx: req.body.wristDx,
                 wristSx: req.body.wristSx,
+                date: Date.now
             };
+
+            console.log(newMeasurement);
 
             client.measurements.push(newMeasurement);
 
