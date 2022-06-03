@@ -12,7 +12,7 @@ router.post("/add/:id", verify, (req, res) => {
             
             console.log(req.body.newMeasurement);
             client.measurements.push(req.body.newMeasurement);
-
+            console.log(client.measurements[0]);
             user.save();
 
             res.send({"message":"New measurement added succesfully"})
