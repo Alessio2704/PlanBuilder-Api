@@ -36,10 +36,9 @@ router.put("/info/:id", verify, (req, res) => {
                 const measurementResult = {
                     "date": client.measurements[i].date
                 }
-
                 result.push(measurementResult);
             }
-
+            console.log(result);
             res.send(result);
 
         } catch(err) {
