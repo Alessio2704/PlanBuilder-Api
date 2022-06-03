@@ -34,7 +34,7 @@ router.put("/info/:id", verify, (req, res) => {
 
             for (i in client.measurements) {
 
-                console.log(typeof(client.measurements[i].date));
+                console.log(typeof(client.measurements[i].weight));
 
                 const measurementResult = {
                     "date": client.measurements[i].date
