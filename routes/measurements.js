@@ -10,7 +10,7 @@ router.post("/add/:id", verify, (req, res) => {
                 return clientDB.name === req.body.name && clientDB.surname === req.body.surname && clientDB.phoneNumber === req.body.phoneNumber;
             }).pop();
             
-            console.log(req.body);
+            console.log(req.body.weight);
             console.log(client);
 
             const newMeasurement = {
