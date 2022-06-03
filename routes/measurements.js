@@ -58,8 +58,8 @@ router.put("/data/:id", verify, (req, res) => {
 
             console.log(client);
 
-            console.log(req.name);
-            console.log(req.date);
+            console.log(req.body.name);
+            console.log(req.body.date);
             
             const measurement = client.measurements.filter(function (measurementDB) {
                 return measurementDB.date === req.body.date;
