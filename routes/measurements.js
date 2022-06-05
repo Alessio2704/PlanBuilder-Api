@@ -97,6 +97,9 @@ router.put("/data/graph/:id", verify, (req, res) => {
 
     const user = User.findOne({_id:req.params.id}, function (err, user) {
         try {
+
+            console.log(req.body);
+
             const client = user.clients.filter(function (clientDB) {
                 return clientDB.name === req.body.name && clientDB.surname === req.body.surname && clientDB.phoneNumber === req.body.phoneNumber;
             }).pop();
@@ -171,7 +174,6 @@ router.put("/data/graph/:id", verify, (req, res) => {
                   }
             }
 
-            console.log(result);
             res.send(result);
 
         } catch(err) {
