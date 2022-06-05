@@ -109,44 +109,64 @@ router.put("/data/graph/:id", verify, (req, res) => {
 
                     case "weight":
                         result[client.measurements[i].date] = client.measurements[i].weight
+                        break;
                     case "ankleDx":
                         result[client.measurements[i].date] = client.measurements[i].ankleDx
+                        break;
                     case "ankleSx":
-                        result[client.measurements[i].date] = client.measurements[i].ankleSx
+                        result[client.measurements[i].date] = client.measurements[i].ankleSx;
+                        break;
                     case "calfDx":
-                        result[client.measurements[i].date] = client.measurements[i].calfDx
+                        result[client.measurements[i].date] = client.measurements[i].calfDx;
+                        break;
                     case "calfSx":
-                        result[client.measurements[i].date] = client.measurements[i].calfSx
+                        result[client.measurements[i].date] = client.measurements[i].calfSx;
+                        break;
                     case "upperThighDx":
-                        result[client.measurements[i].date] = client.measurements[i].upperThighDx
+                        result[client.measurements[i].date] = client.measurements[i].upperThighDx;
+                        break;
                     case "upperThighSx":
-                        result[client.measurements[i].date] = client.measurements[i].upperThighSx
+                        result[client.measurements[i].date] = client.measurements[i].upperThighSx;
+                        break;
                     case "middleThighDx":
-                        result[client.measurements[i].date] = client.measurements[i].middleThighDx
+                        result[client.measurements[i].date] = client.measurements[i].middleThighDx;
+                        break;
                     case "middleThighSx":
-                        result[client.measurements[i].date] = client.measurements[i].middleThighSx
+                        result[client.measurements[i].date] = client.measurements[i].middleThighSx;
+                        break;
                     case "flanks":
-                        result[client.measurements[i].date] = client.measurements[i].flanks
+                        result[client.measurements[i].date] = client.measurements[i].flanks;
+                        break;
                     case "lowerBellyButton":
-                        result[client.measurements[i].date] = client.measurements[i].lowerBellyButton
+                        result[client.measurements[i].date] = client.measurements[i].lowerBellyButton;
+                        break;
                     case "bellyButton":
-                        result[client.measurements[i].date] = client.measurements[i].bellyButton
+                        result[client.measurements[i].date] = client.measurements[i].bellyButton;
+                        break;
                     case "waist":
-                        result[client.measurements[i].date] = client.measurements[i].waist
+                        result[client.measurements[i].date] = client.measurements[i].waist;
+                        break;
                     case "chest":
-                        result[client.measurements[i].date] = client.measurements[i].chest
+                        result[client.measurements[i].date] = client.measurements[i].chest;
+                        break;
                     case "shoulders":
-                        result[client.measurements[i].date] = client.measurements[i].shoulders
+                        result[client.measurements[i].date] = client.measurements[i].shoulders;
+                        break;
                     case "neck":
-                        result[client.measurements[i].date] = client.measurements[i].neck
+                        result[client.measurements[i].date] = client.measurements[i].neck;
+                        break;
                     case "armDx":
-                        result[client.measurements[i].date] = client.measurements[i].armDx
+                        result[client.measurements[i].date] = client.measurements[i].armDx;
+                        break;
                     case "armSx":
-                        result[client.measurements[i].date] = client.measurements[i].armSx
+                        result[client.measurements[i].date] = client.measurements[i].armSx;
+                        break;
                     case "wristDx":
-                        result[client.measurements[i].date] = client.measurements[i].wristDx
+                        result[client.measurements[i].date] = client.measurements[i].wristDx;
+                        break;
                     case "wristSx":
-                        result[client.measurements[i].date] = client.measurements[i].wristSx
+                        result[client.measurements[i].date] = client.measurements[i].wristSx;
+                        break;
 
                   }
             }
