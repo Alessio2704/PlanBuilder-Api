@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const authRoute = require("./routes/auth");
 const clientsRoute = require("./routes/clients");
 const measurementsRoute = require("./routes/measurements");
+const skinfoldsRoute = require("./routes/skinfolds");
 
 dotenv.config();
 
@@ -18,5 +19,6 @@ app.use(express.json());
 app.use("/api/user",authRoute);
 app.use("/api/user/clients",clientsRoute);
 app.use("/api/user/clients/measurements",measurementsRoute);
+app.use("/api/user/clients/skinfolds",skinfoldsRoute);
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
