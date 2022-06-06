@@ -14,6 +14,7 @@ router.post("/info/:id", verify, async (req, res) => {
                 "name":userDB.clients[i].name,
                 "surname":userDB.clients[i].surname,
                 "gender":userDB.clients[i].gender,
+                "height":userDB.clients[i].height,
                 "email":userDB.clients[i].email,
                 "age":userDB.clients[i].age,
                 "phoneNumber":userDB.clients[i].phoneNumber,
