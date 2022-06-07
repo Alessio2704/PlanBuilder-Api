@@ -34,10 +34,7 @@ const clientSchema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId, ref: "User"
-    },
-    measurements: [{ type: mongoose.Schema.Types.ObjectId, ref: "Measurement" }],
-
-    skinfolds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Skinfold" }]
+    }
 });
 
 module.exports = mongoose.model("Client", clientSchema);
