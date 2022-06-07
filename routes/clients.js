@@ -1,23 +1,24 @@
 const router = require("express").Router();
 const verify = require("./verifyToken");
 const User = require("../model/User");
+const Client = require("../model/Client");
 
-router.post("/info/:id", verify, async (req, res) => {
+router.post("/info/:id", async (req, res) => {
     try {
-        const userDB = await User.findOne({ _id: req.params.id });
-        
+        const clientsDB = await Client.find({user:req.params.id});
+
         const result = []
 
-        for (i in userDB.clients) {
+        for (i in clientsDB) {
 
             const clientResult = {
-                "name":userDB.clients[i].name,
-                "surname":userDB.clients[i].surname,
-                "gender":userDB.clients[i].gender,
-                "height":userDB.clients[i].height,
-                "email":userDB.clients[i].email,
-                "age":userDB.clients[i].age,
-                "phoneNumber":userDB.clients[i].phoneNumber,
+                "name":clientsDB[i].name,
+                "surname":clientsDB[i].surname,
+                "gender":clientsDB[i].gender,
+                "height":clientsDB[i].height,
+                "email":clientsDB[i].email,
+                "age":clientsDB[i].age,
+                "phoneNumber":clientsDB[i].phoneNumber,
             }
 
             result.push(clientResult);
@@ -26,16 +27,29 @@ router.post("/info/:id", verify, async (req, res) => {
         res.send(result);
 
     } catch(error) {
-       res.send({"message":"No personal plans found"});
+       res.send({"message":"No client found"});
     }
 });
 
 router.put("/info/:id", verify, async (req, res) => {
     try {
-        const user = await User.updateOne({_id:req.params.id},{$push: {clients: req.body}});
+        const client = new Client({
+            name: req.body.name,
+            surname: req.body.surname,
+            gender: req.body.gender,
+            email: req.body.email,
+            age: req.body.age,
+            phoneNumber: req.body.phoneNumber,
+            height: req.body.height,
+            user: req.params.id
+        });
+
+        const savedClient = await client.save();
+
         res.send({"message": "ok"});
+
     } catch(error) {
-       res.send({"message":"Error"});
+       res.send({"message":error});
     }
 });
 

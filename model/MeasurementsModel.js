@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 
-const MeasurementsModelSchema = new mongoose.Schema({
+const MeasurementsSchema = new mongoose.Schema({
 
+    client: {
+        type: mongoose.Schema.Types.ObjectId, ref: "Client"
+    },
     weight: {
         type: String
     },
@@ -67,4 +70,4 @@ const MeasurementsModelSchema = new mongoose.Schema({
     }
 });
 
-module.exports =  MeasurementsModelSchema;
+module.exports = mongoose.model("Measurement", MeasurementsSchema);

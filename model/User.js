@@ -23,9 +23,6 @@ const userSchema = new mongoose.Schema({
     dateSignedIn: {
         type: Date,
         default: Date.now
-    },
-    clients: {
-        type: [ClientModel]
     }
 });
 

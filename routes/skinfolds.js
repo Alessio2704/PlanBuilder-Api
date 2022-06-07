@@ -1,133 +1,133 @@
 const router = require("express").Router();
+const Client = require("../model/Client");
 const User = require("../model/User");
+const Skinfold = require("../model/SkinfoldsModel");
 const verify = require("./verifyToken");
 
-router.post("/add/:id", verify, (req, res) => {
-
-    const user = User.findOne({_id:req.params.id}, function (err, user) {
-        try {
-            const client = user.clients.filter(function (clientDB) {
-                return clientDB.name === req.body.name && clientDB.surname === req.body.surname && clientDB.phoneNumber === req.body.phoneNumber;
-            }).pop();
-            
-            client.skinfolds.push(req.body.newSkinfold);
-            user.save();
-
-            res.send({"message":"New skinfold added succesfully"})
-
-        } catch(err) {
-            console.log(err)
-            res.status(404).send({"message":"Unable to add skinfold"});
-        }
+router.post("/add/:id", verify, async (req, res) => {
+  try {
+    const clientDB = await Client.findOne({
+      name: req.body.name,
+      surname: req.body.surname,
+      phoneNumber: req.body.phoneNumber,
     });
+
+    const skinfold = new Skinfold({
+      client: clientDB._id,
+      tricep: req.body.newSkinfold.tricep,
+      abdominal: req.body.newSkinfold.abdominal,
+      suprailiac: req.body.newSkinfold.suprailiac,
+      subscapula: req.body.newSkinfold.subscapula,
+      midaxillary: req.body.newSkinfold.midaxillary,
+      pectoral: req.body.newSkinfold.pectoral,
+      thigh: req.body.newSkinfold.thigh,
+      date: req.body.newSkinfold.date,
+    });
+
+    const savedSkinfold = skinfold.save();
+
+    res.send({ message: "Skinfold added succesfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(404).send({ message: "Unable to add skinfold" });
+  }
 });
 
-router.put("/info/:id", verify, (req, res) => {
-
-    const user = User.findOne({_id:req.params.id}, function (err, user) {
-        try {
-            const client = user.clients.filter(function (clientDB) {
-                return clientDB.name === req.body.name && clientDB.surname === req.body.surname && clientDB.phoneNumber === req.body.phoneNumber;
-            }).pop();
-            
-            const result = [];
-
-            for (i in client.skinfolds) {
-
-                const skinfoldResult = {
-                    "date": client.skinfolds[i].date
-                }
-                result.push(skinfoldResult);
-            }
-            res.send(result);
-
-        } catch(err) {
-            console.log(err)
-            res.status(404).send({"message":"Unable to get skinfold"});
-        }
+router.put("/info/:id", verify, async (req, res) => {
+  try {
+    const clientDB = await Client.findOne({
+      name: req.body.name,
+      surname: req.body.surname,
+      phoneNumber: req.body.phoneNumber,
     });
+    const skinfoldsDB = await Skinfold.find({ client: clientDB._id });
+
+    const result = [];
+
+    for (i in skinfoldsDB) {
+      const skinfoldResult = {
+        date: skinfoldsDB[i].date,
+      };
+      result.push(skinfoldResult);
+    }
+    res.send(result);
+  } catch {
+    res.send({ message: "Skinfold not found" });
+  }
 });
 
-router.put("/data/:id", verify, (req, res) => {
-
-    const user = User.findOne({_id:req.params.id}, function (err, user) {
-        try {
-            const client = user.clients.filter(function (clientDB) {
-                return clientDB.name === req.body.name && clientDB.surname === req.body.surname && clientDB.phoneNumber === req.body.phoneNumber;
-            }).pop();
-            
-            const skinfold = client.skinfolds.filter(function (skinfoldDB) {
-                return skinfoldDB.date === req.body.date;
-            }).pop();
-
-            const result = {
-                tricep: skinfold.tricep,
-                abdominal: skinfold.abdominal,
-                suprailiac: skinfold.suprailiac,
-                subscapula: skinfold.subscapula,
-                midaxillary: skinfold.midaxillary,
-                pectoral: skinfold.pectoral,
-                thigh: skinfold.thigh,
-                date: skinfold.date,
-            }
-
-            res.send(result);
-
-        } catch(err) {
-            console.log(err)
-            res.status(404).send({"message":"Unable to get skinfold"});
-        }
+router.put("/data/:id", verify, async (req, res) => {
+  try {
+    const clientDB = await Client.findOne({
+      name: req.body.name,
+      surname: req.body.surname,
+      phoneNumber: req.body.phoneNumber,
     });
+    const skinfoldsDB = await Skinfold.findOne({
+      client: clientDB._id,
+      date: req.body.date,
+    });
+
+    const result = {
+      tricep: skinfoldsDB.tricep,
+      abdominal: skinfoldsDB.abdominal,
+      suprailiac: skinfoldsDB.suprailiac,
+      subscapula: skinfoldsDB.subscapula,
+      midaxillary: skinfoldsDB.midaxillary,
+      pectoral: skinfoldsDB.pectoral,
+      thigh: skinfoldsDB.thigh,
+      date: skinfoldsDB.date,
+    };
+
+    res.send(result);
+  } catch (err) {
+    console.log(err);
+    res.status(404).send({ message: "Unable to get skinfold" });
+  }
 });
 
-router.put("/data/graph/:id", verify, (req, res) => {
-
-    const user = User.findOne({_id:req.params.id}, function (err, user) {
-        try {
-
-            const client = user.clients.filter(function (clientDB) {
-                return clientDB.name === req.body.name && clientDB.surname === req.body.surname && clientDB.phoneNumber === req.body.phoneNumber;
-            }).pop();
-            
-            const result = {}
-
-            for (i in client.skinfolds) {
-
-                switch (req.body.bodyPart) {
-
-                    case "tricep":
-                        result[client.skinfolds[i].date] = client.skinfolds[i].tricep
-                        break;
-                    case "abdominal":
-                        result[client.skinfolds[i].date] = client.skinfolds[i].abdominal
-                        break;
-                    case "suprailiac":
-                        result[client.skinfolds[i].date] = client.skinfolds[i].suprailiac;
-                        break;
-                    case "subscapula":
-                        result[client.skinfolds[i].date] = client.skinfolds[i].subscapula;
-                        break;
-                    case "midaxillary":
-                        result[client.skinfolds[i].date] = client.skinfolds[i].midaxillary;
-                        break;
-                    case "pectoral":
-                        result[client.skinfolds[i].date] = client.skinfolds[i].pectoral;
-                        break;
-                    case "thigh":
-                        result[client.skinfolds[i].date] = client.skinfolds[i].thigh;
-                        break;
-                  }
-            }
-
-            res.send(result);
-
-        } catch(err) {
-            console.log(err)
-            res.status(404).send({"message":"Unable to get skinfold"});
-        }
+router.put("/data/graph/:id", verify, async (req, res) => {
+  try {
+    const clientDB = await Client.findOne({
+      name: req.body.name,
+      surname: req.body.surname,
+      phoneNumber: req.body.phoneNumber,
     });
+    const skinfoldsDB = await Skinfold.find({ client: clientDB._id });
+
+    const result = {};
+
+    for (i in skinfoldsDB) {
+      switch (req.body.bodyPart) {
+        case "tricep":
+          result[skinfoldsDB[i].date] = skinfoldsDB[i].tricep;
+          break;
+        case "abdominal":
+          result[skinfoldsDB[i].date] = skinfoldsDB[i].abdominal;
+          break;
+        case "suprailiac":
+          result[skinfoldsDB[i].date] = skinfoldsDB[i].suprailiac;
+          break;
+        case "subscapula":
+          result[skinfoldsDB[i].date] = skinfoldsDB[i].subscapula;
+          break;
+        case "midaxillary":
+          result[skinfoldsDB[i].date] = skinfoldsDB[i].midaxillary;
+          break;
+        case "pectoral":
+          result[skinfoldsDB[i].date] = skinfoldsDB[i].pectoral;
+          break;
+        case "thigh":
+          result[skinfoldsDB[i].date] = skinfoldsDB[i].thigh;
+          break;
+      }
+    }
+
+    res.send(result);
+  } catch (err) {
+    console.log(err);
+    res.status(404).send({ message: "Unable to get skinfold data" });
+  }
 });
-
-
 
 module.exports = router;

@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const SkinfoldsMeasurementsModelSchema = new mongoose.Schema({
 
+    client: {
+        type: mongoose.Schema.Types.ObjectId, ref: "Client"
+    },
     tricep: {
         type: String
     },
@@ -28,4 +31,4 @@ const SkinfoldsMeasurementsModelSchema = new mongoose.Schema({
     }
 });
 
-module.exports =  SkinfoldsMeasurementsModelSchema;
+module.exports = mongoose.model("Skinfold", SkinfoldsMeasurementsModelSchema);
