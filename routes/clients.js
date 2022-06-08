@@ -4,7 +4,7 @@ const User = require("../model/User");
 const Client = require("../model/Client");
 const Lifestyle = require("../model/Lifestyle");
 
-router.post("/info/:id", async (req, res) => {
+router.post("/info/:id", verify, async (req, res) => {
     try {
         const clientsDB = await Client.find({user:req.params.id});
 
@@ -83,68 +83,6 @@ router.put("/info/report/:id", verify, async (req, res) => {
           });
 
           res.send({"report":client.report});
-
-    } catch(error) {
-       res.send({"message":error});
-    }
-});
-
-router.post("/info/detail/:id", verify, async (req, res) => {
-    try {
-        const client = await Client.findOne({
-            name: req.body.name,
-            surname: req.body.surname,
-            phoneNumber: req.body.phoneNumber,
-          });
-
-        const lifestyle = new Lifestyle({
-            steps: req.body.steps,
-            work: req.body.work,
-            sleep: req.body.sleep,
-            alcohol: req.body.alcohol,
-            smoke: req.body.smoke,
-            diet: req.body.diet,
-            client: {
-                type: mongoose.Schema.Types.ObjectId, ref: "Client"
-            }
-        });
-
-        lifestyle.save();
-
-        res.send({
-            steps: lifestyle.steps,
-            work: lifestyle.work,
-            sleep: lifestyle.sleep,
-            smoke: lifestyle.smoke,
-            alcohol: lifestyle.alcohol,
-            diet: lifestyle.diet,
-        })
-
-    } catch(error) {
-       res.send({"message":error});
-    }
-});
-
-router.put("/info/detail/:id", verify, async (req, res) => {
-    try {
-        const client = await Client.findOne({
-            name: req.body.name,
-            surname: req.body.surname,
-            phoneNumber: req.body.phoneNumber,
-          });
-
-          const lifestyle = await Lifestyle.findOne({
-            client: client._id
-          });
-
-          res.send({
-            steps: lifestyle.steps,
-            work: lifestyle.work,
-            sleep: lifestyle.sleep,
-            smoke: lifestyle.smoke,
-            alcohol: lifestyle.alcohol,
-            diet: lifestyle.diet,
-          });
 
     } catch(error) {
        res.send({"message":error});
