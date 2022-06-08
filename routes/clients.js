@@ -54,7 +54,7 @@ router.put("/info/:id", verify, async (req, res) => {
     }
 });
 
-router.put("/info/report/:id", verify, async (req, res) => {
+router.post("/info/report/:id", verify, async (req, res) => {
     try {
         const client = await Client.findOne({
             name: req.body.name,
