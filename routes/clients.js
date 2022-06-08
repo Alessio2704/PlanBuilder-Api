@@ -66,6 +66,23 @@ router.post("/info/report/:id", verify, async (req, res) => {
 
           client.save()
 
+          res.send({"message":"Report added"});
+
+    } catch(error) {
+       res.send({"message":error});
+    }
+});
+
+router.put("/info/report/:id", verify, async (req, res) => {
+    try {
+        const client = await Client.findOne({
+            name: req.body.name,
+            surname: req.body.surname,
+            phoneNumber: req.body.phoneNumber,
+          });
+
+          res.send({"report":client.report});
+
     } catch(error) {
        res.send({"message":error});
     }
