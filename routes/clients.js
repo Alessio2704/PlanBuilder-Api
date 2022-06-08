@@ -41,6 +41,7 @@ router.put("/info/:id", verify, async (req, res) => {
             age: req.body.age,
             phoneNumber: req.body.phoneNumber,
             height: req.body.height,
+            report: "",
             user: req.params.id
         });
 
