@@ -32,6 +32,9 @@ const clientSchema = new mongoose.Schema({
     height: {
         type: String
     },
+    report: {
+        type: String
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId, ref: "User"
     }

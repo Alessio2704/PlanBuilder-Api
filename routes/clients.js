@@ -53,4 +53,21 @@ router.put("/info/:id", verify, async (req, res) => {
     }
 });
 
+router.put("/info/report/:id", verify, async (req, res) => {
+    try {
+        const client = await Client.findOne({
+            name: req.body.name,
+            surname: req.body.surname,
+            phoneNumber: req.body.phoneNumber,
+          });
+
+          client.report = req.body.report;
+
+          client.save()
+
+    } catch(error) {
+       res.send({"message":error});
+    }
+});
+
 module.exports = router;
