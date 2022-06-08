@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const verify = require("./verifyToken");
-const User = require("../model/User");
 const Client = require("../model/Client");
+const Measurement = require("../model/MeasurementsModel");
+const Skinfold = require("../model/SkinfoldsModel");
 const Lifestyle = require("../model/Lifestyle");
 
 router.post("/info/:id", verify, async (req, res) => {
@@ -83,6 +84,33 @@ router.put("/info/report/:id", verify, async (req, res) => {
           });
 
           res.send({"report":client.report});
+
+    } catch(error) {
+       res.send({"message":error});
+    }
+});
+
+router.delete("/info/:id", verify, async (req, res) => {
+    try {
+        const client = await Client.findOneAndDelete({
+            name: req.body.name,
+            surname: req.body.surname,
+            phoneNumber: req.body.phoneNumber,
+          });
+
+          const measurement = await Measurement.deleteMany({
+            client: client._id
+          });
+
+          const skinfold = await Skinfold.deleteMany({
+            client: client._id
+          });
+
+          const lifestyle = await Lifestyle.findOneAndDelete({
+            client: client._id
+          });
+
+          res.send({"message":"Client deleted"});
 
     } catch(error) {
        res.send({"message":error});
