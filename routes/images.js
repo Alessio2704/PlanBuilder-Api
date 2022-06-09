@@ -1,4 +1,4 @@
-require("dotenv").config()
+require("dotenv").config();
 const router = require("express").Router();
 const verify = require("./verifyToken");
 const Client = require("../model/Client");
@@ -9,40 +9,44 @@ const { removeImages } = require("../removeImages");
 const { uploadFiles } = require("../s3");
 
 router.post("/add/:id", verify, upload.array("image"), async (req, res) => {
+  try {
     const results = await uploadFiles(req.files);
 
     const client = await Client.findOne({
-        name: req.body.name,
-        surname: req.body.surname,
-        phoneNumber: req.body.phoneNumber,
+      name: req.body.name,
+      surname: req.body.surname,
+      phoneNumber: req.body.phoneNumber,
     });
 
-    const responseArray = []
+    const responseArray = [];
 
-    const asyncRes = await Promise.all(results.map( async (result) => {
-
+    const asyncRes = await Promise.all(
+      results.map(async (result) => {
         const image = new Image({
-            imageURL: result.Location,
-            imageKey: result.key,
-            bodyPart: req.body.bodyPart,
-            date: new Date().toISOString(),
-            client: client._id
+          imageURL: result.Location,
+          imageKey: result.key,
+          bodyPart: req.body.bodyPart,
+          date: new Date().toISOString(),
+          client: client._id,
         });
-    
+
         const savedImage = await image.save();
-    
-            const imageResultDB = {
-                imageURL: savedImage.imageURL,
-                date: savedImage.date,
-            }
-    
-            responseArray.push(imageResultDB);
-    
-        }));
 
-    removeImages('./uploads');
+        const imageResultDB = {
+          imageURL: savedImage.imageURL,
+          date: savedImage.date,
+        };
 
-    res.send({"message":"Picture Saved"});
+        responseArray.push(imageResultDB);
+      })
+    );
+
+    removeImages("./uploads");
+
+    res.send({ message: "Picture Saved" });
+  } catch (error) {
+    res.send({ message: "Error saving image" });
+  }
 });
 
 module.exports = router;
