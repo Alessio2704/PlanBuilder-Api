@@ -49,4 +49,37 @@ router.post("/add/:id", verify, upload.array("image"), async (req, res) => {
   }
 });
 
+router.put("/info/:id", verify, async (req, res) => {
+
+    try {
+      const clientDB = await Client.findOne({
+        name: req.body.name,
+        surname: req.body.surname,
+        phoneNumber: req.body.phoneNumber,
+      });
+
+      const imagesDB = await Image.find({ client: clientDB._id });
+  
+      const result = [];
+      const resultSet = new Set();
+  
+      for (j in imagesDB) {
+        resultSet.add(imagesDB[j].date.substring(0,10));
+      }
+
+      for (let item of resultSet) {
+        const imageResult = {
+          date: item
+        };
+
+        result.push(imageResult);
+      }
+
+      res.send(result);
+
+    } catch {
+      res.send({ message: "Images not found" });
+    }
+  });
+
 module.exports = router;
