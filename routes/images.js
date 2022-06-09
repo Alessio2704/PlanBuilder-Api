@@ -9,9 +9,6 @@ const { removeImages } = require("../removeImages");
 const { uploadFiles } = require("../s3");
 
 router.post("/add/:id", verify, upload.array("image"), async (req, res) => {
-
-
-
     const results = await uploadFiles(req.files);
 
     const client = await Client.findOne({
@@ -26,6 +23,7 @@ router.post("/add/:id", verify, upload.array("image"), async (req, res) => {
 
         const image = new Image({
             imageURL: result.Location,
+            imageKey: result.key,
             bodyPart: req.body.bodyPart,
             date: new Date().toISOString(),
             client: client._id

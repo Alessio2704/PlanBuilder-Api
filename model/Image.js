@@ -5,6 +5,9 @@ const imageSchema = new mongoose.Schema({
     imageURL: {
         type: String,
     },
+    imageKey: {
+        type: String
+    },
     bodyPart: {
         type:String,
     },

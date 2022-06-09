@@ -1,9 +1,13 @@
+require("dotenv").config();
 const router = require("express").Router();
 const verify = require("./verifyToken");
 const Client = require("../model/Client");
 const Measurement = require("../model/MeasurementsModel");
 const Skinfold = require("../model/SkinfoldsModel");
 const Lifestyle = require("../model/Lifestyle");
+const Image = require("../model/Image");
+
+const { deleteFile } = require("../s3");
 
 router.post("/info/:id", verify, async (req, res) => {
     try {
@@ -110,10 +114,23 @@ router.delete("/info/:id", verify, async (req, res) => {
             client: client._id
           });
 
+          const images = await Image.find({
+            client: client._id
+          });
+          
+          const imagesDeleted = await Image.deleteMany({
+            client: client._id
+          });
+
+          for (i in images) {
+            const deletionResult = await deleteFile(images[i].imageKey);
+          }
+
           res.send({"message":"Client deleted"});
 
     } catch(error) {
-       res.send({"message":error});
+        console.log(error)
+        res.send({"message":error});
     }
 });
 

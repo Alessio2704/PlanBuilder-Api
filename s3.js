@@ -27,7 +27,14 @@ async function uploadFiles(files) {
 
     return await Promise.all(params.map(param => s3.upload(param).promise()));
 
-    }
+}
+
+async function deleteFile(imageKey) {
+    
+    return await s3.deleteObject({Bucket: bucketName, Key: imageKey}).promise()
+    
+}
 
     
 exports.uploadFiles = uploadFiles
+exports.deleteFile = deleteFile
