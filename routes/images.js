@@ -44,7 +44,7 @@ router.post("/add/:id", verify, upload.array("image"), async (req, res) => {
 
     removeImages('./uploads');
 
-    res.send(responseArray);
+    res.send({"message":"Picture Saved"});
 });
 
 module.exports = router;
