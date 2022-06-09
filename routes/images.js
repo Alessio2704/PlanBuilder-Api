@@ -10,6 +10,8 @@ const { uploadFiles } = require("../s3");
 
 router.post("/add/:id", verify, upload.array("image"), async (req, res) => {
 
+
+
     const results = await uploadFiles(req.files);
 
     const client = await Client.findOne({
@@ -35,7 +37,6 @@ router.post("/add/:id", verify, upload.array("image"), async (req, res) => {
                 imageURL: savedImage.imageURL,
                 date: savedImage.date,
             }
-            console.log(imageResultDB);
     
             responseArray.push(imageResultDB);
     
