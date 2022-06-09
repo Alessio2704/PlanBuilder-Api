@@ -2,11 +2,13 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose")
 const dotenv = require("dotenv");
+const multer = require("multer");
 const authRoute = require("./routes/auth");
 const clientsRoute = require("./routes/clients");
 const lifestyleRoute = require("./routes/lifestyle");
 const measurementsRoute = require("./routes/measurements");
 const skinfoldsRoute = require("./routes/skinfolds");
+const imagesRoute = require("./routes/images");
 
 dotenv.config();
 
@@ -22,5 +24,6 @@ app.use("/api/user/clients",clientsRoute);
 app.use("/api/user/clients/info/lifestyle",lifestyleRoute);
 app.use("/api/user/clients/measurements",measurementsRoute);
 app.use("/api/user/clients/skinfolds",skinfoldsRoute);
+app.use("/api/user/clients/images",imagesRoute);
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
