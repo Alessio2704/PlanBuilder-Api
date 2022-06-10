@@ -45,6 +45,7 @@ router.post("/add/:id", verify, upload.array("image"), async (req, res) => {
 
     res.send({ message: "Picture Saved" });
   } catch (error) {
+    console.log(error);
     res.send({ message: "Error saving image" });
   }
 });
