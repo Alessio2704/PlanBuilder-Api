@@ -17,6 +17,15 @@ const PORT = process.env.PORT || 3000;
 //connect to db
 mongoose.connect(process.env.DB_CONNECT,{ useNewUrlParser: true},() => console.log("connected to db"));
 
+const testFolder = "uploads/";
+const fs = require('fs');
+
+fs.readdir(testFolder, (err, files) => {
+  files.forEach(file => {
+    console.log(file);
+  });
+});
+
 app.use(express.json());
 
 app.use("/api/user",authRoute);
