@@ -21,6 +21,7 @@ const testFolder = "uploads/";
 const fs = require('fs');
 
 fs.readdir(testFolder, (err, files) => {
+    console.log("Files in uploads directory:")
   files.forEach(file => {
     console.log(file);
   });
