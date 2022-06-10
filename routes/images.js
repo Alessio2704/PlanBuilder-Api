@@ -40,13 +40,20 @@ router.post("/add/:id", verify, upload.array("image"), async (req, res) => {
         responseArray.push(imageResultDB);
       })
     );
-
-    removeImages("./uploads");
-
     res.send({ message: "Picture Saved" });
   } catch (error) {
     console.log(error);
     res.send({ message: "Error saving image" });
+  }
+});
+
+router.post("/delete/images/folder/:id", verify, (req,res) => {
+  try {
+    removeImages("./uploads");
+    res.send({"message":"Images folder deleted"});
+  } catch (error) {
+    console.log(error);
+    res.send({"message":"Error Deleting images folder"});
   }
 });
 
