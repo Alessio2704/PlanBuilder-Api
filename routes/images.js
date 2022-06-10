@@ -26,7 +26,7 @@ router.post("/add/:id", verify, upload.array("image"), async (req, res) => {
           imageURL: result.Location,
           imageKey: result.key,
           bodyPart: req.body.bodyPart,
-          date: new Date().toISOString(),
+          date: new Date().toISOString().substring(0,10),
           client: client._id,
         });
 
@@ -72,6 +72,38 @@ router.put("/info/:id", verify, async (req, res) => {
         };
 
         result.push(imageResult);
+      }
+
+      res.send(result);
+
+    } catch {
+      res.send({ message: "Images not found" });
+    }
+  });
+
+  router.put("/detail/:id", verify, async (req, res) => {
+
+    try {
+      const clientDB = await Client.findOne({
+        name: req.body.name,
+        surname: req.body.surname,
+        phoneNumber: req.body.phoneNumber,
+      });
+
+      
+      const imagesDB = await Image.find({ client: clientDB._id, date: req.body.date });
+  
+      const result = [];
+  
+      for (i in imagesDB) {
+        
+        const imageDB = {
+          imageURL: imagesDB[i].imageURL,
+          bodyPart: imagesDB[i].bodyPart
+        }
+
+        result.push(imageDB);
+
       }
 
       res.send(result);
