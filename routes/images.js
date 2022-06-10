@@ -5,7 +5,7 @@ const Client = require("../model/Client");
 const Image = require("../model/Image");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
-const { removeImages } = require("../removeImages");
+const { removeImage } = require("../removeImage");
 const { uploadFiles } = require("../s3");
 
 router.post("/add/:id", verify, upload.array("image"), async (req, res) => {
@@ -38,22 +38,13 @@ router.post("/add/:id", verify, upload.array("image"), async (req, res) => {
         };
 
         responseArray.push(imageResultDB);
+        removeImage("uploads/", result.key);
       })
     );
     res.send({ message: "Picture Saved" });
   } catch (error) {
     console.log(error);
     res.send({ message: "Error saving image" });
-  }
-});
-
-router.post("/delete/images/folder/:id", verify, (req,res) => {
-  try {
-    removeImages("./uploads");
-    res.send({"message":"Images folder deleted"});
-  } catch (error) {
-    console.log(error);
-    res.send({"message":"Error Deleting images folder"});
   }
 });
 
