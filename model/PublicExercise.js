@@ -10,7 +10,7 @@ const publicExerciseSchema = new mongoose.Schema({
         enum : [ 'Squat', "Hip Hinge", 'Core', 'Horizontal Push', 'Vertical Push', 'Horizontal Pull', 'Vertical Pull', 'Mobility','Stretching','Isolation' ]
     },
     variations: {
-        type: [Object]
+        type: [Sring]
     },
     workedMuscles: {
         type: Object
@@ -25,6 +25,9 @@ const publicExerciseSchema = new mongoose.Schema({
     },
     translation: {
         type: Object
+    },
+    variationsTranslation: {
+        type: [Object]
     }
 });
 
