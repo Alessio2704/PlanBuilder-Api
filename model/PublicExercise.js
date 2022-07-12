@@ -7,7 +7,7 @@ const publicExerciseSchema = new mongoose.Schema({
     },
     movementPattern: {
         type: String,
-        enum : [ 'Squat', 'Lunge', 'Bend', 'Core', 'Horizontal Push', 'Vertical Push', 'Horizontal Pull', 'Vertical Pull', 'Locomotion', 'Isolation']
+        enum : [ 'Squat', "Hip Hinge", 'Core', 'Horizontal Push', 'Vertical Push', 'Horizontal Pull', 'Vertical Pull', 'Isolation']
     },
     variations: {
         type: [String]
