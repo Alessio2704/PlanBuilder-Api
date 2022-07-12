@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
             tempo : exercise.tempo,
             equipment: exercise.equipment,
             translation: exercise.translation,
-            varitionsTransition: exercise.varitionsTransition
+            variationsTranslation: exercise.variationsTranslation
         }
 
         result.push(exerciseResult);
@@ -42,7 +42,7 @@ router.post("/:id", verify, async (req, res) => {
             variations: req.body.variations,
             workedMuscles: req.body.workedMuscles,
             translation: req.body.translation,
-            varitionsTransition: req.body.varitionsTransition
+            variationsTranslation: req.body.variationsTranslation
         });
 
         const savedExercise = await newExercise.save();
