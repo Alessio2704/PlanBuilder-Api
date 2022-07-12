@@ -22,6 +22,9 @@ const publicExerciseSchema = new mongoose.Schema({
     equipment: {
         type: [String],
         default: ['Chains', 'Bands','Board', 'Pins', 'Box',]
+    },
+    translation: {
+        type: Object
     }
 });
 
