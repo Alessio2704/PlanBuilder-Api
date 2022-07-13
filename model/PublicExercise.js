@@ -19,12 +19,16 @@ const publicExerciseSchema = new mongoose.Schema({
         type: [String],
         default: ['Isokinetic', '2sec Pause', '5sec Pause', '5sec Up 5sec Down', 'Slow Negative', '5sec Negative', 'Explosive Concentric']
     },
-    equipment: {
+    primaryEquipment: {
+        type: [String],
+        default: ['Dumbbell','Barbell','Machine']
+    },
+    secondaryEquipment: {
         type: [String],
         default: ['Chains', 'Bands','Board', 'Pins', 'Box',]
     },
     translation: {
-        type: Object
+        type: [Object]
     },
     variationsTranslation: {
         type: [Object]
