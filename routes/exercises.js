@@ -18,7 +18,8 @@ router.get("/", async (req, res) => {
             variations: exercise.variations,
             workedMuscles: exercise.workedMuscles,
             tempo : exercise.tempo,
-            equipment: exercise.equipment,
+            primaryEquipment: exercise.primaryEquipment,
+            secondaryEquipment: exercise.secondaryEquipment,
             translation: exercise.translation,
             variationsTranslation: exercise.variationsTranslation
         }
