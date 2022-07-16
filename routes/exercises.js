@@ -6,7 +6,7 @@ const MovementPattern = require("../model/MovementPattern");
 router.get("/", async (req, res) => {
   try {
 
-   const exercises = await PublicExercise.find({});
+   const exercises = await PublicExercise.find({movementPatternName: req.query.movementPattern});
 
    const languageCode = req.query.language;
 
@@ -98,6 +98,29 @@ router.post("/:id", verify, async (req, res) => {
     } catch (error) {
       console.log(error);
       res.send({ message: "Error saving public exercises"});
+    }
+  });
+
+  router.put("/update/:id", verify, async (req, res) => {
+    try {
+  
+      const exerciseToUpdate = await PublicExercise.findOne({name: req.body.exerciseName});
+
+      for (i in req.body.variations) { 
+        exerciseToUpdate.variations.push(req.body.variations[i]);
+      }
+
+      for (i in req.body.variationsTranslation) { 
+        exerciseToUpdate.variationsTranslation.push(req.body.variationsTranslation[i]);
+      }
+
+      const savedExercise = await exerciseToUpdate.save();
+
+        res.send({ message: "New exercise updated succesfully"});
+  
+    } catch (error) {
+      console.log(error);
+      res.send({ message: "Error updating public exercise"});
     }
   });
 
