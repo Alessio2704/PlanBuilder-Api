@@ -61,6 +61,7 @@ router.get("/", async (req, res) => {
         }
 
         const exerciseResult = {
+            nameIdentifier: exercise.name,
             name: name,
             movementPatternName: movementPattern,
             variations: variations,
