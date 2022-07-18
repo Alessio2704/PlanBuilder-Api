@@ -11,6 +11,7 @@ const skinfoldsRoute = require("./routes/skinfolds");
 const imagesRoute = require("./routes/images");
 const  exercisesRoute = require("./routes/exercises");
 const  movementPatternsRoute = require("./routes/movementPatterns");
+const languagesRoute = require("./routes/languages");
 
 dotenv.config();
 
@@ -39,5 +40,6 @@ app.use("/api/user/clients/skinfolds",skinfoldsRoute);
 app.use("/api/user/clients/images",imagesRoute);
 app.use("/api/exercises",exercisesRoute);
 app.use("/api/movementpatterns",movementPatternsRoute);
+app.use("/api/supportedLanguages",languagesRoute);
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
