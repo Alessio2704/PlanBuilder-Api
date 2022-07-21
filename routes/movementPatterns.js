@@ -61,5 +61,34 @@ const MovementPattern = require("../model/MovementPattern");
         res.send({ message: "Error saving movement pattern"});
       }
     });
+
+    router.post("/data/:id", verify, async (req, res) => {  
+
+      try {
+      const movementPatterns = await MovementPattern.find({});
+
+      const result = [];
+
+      for (movement of movementPatterns) {
+
+        if (movement.workedMuscles != null) {
+          
+          const item = {
+            name: movement.name,
+            workedMuscles: movement.workedMuscles
+          }
+
+          result.push(item);
+
+        } 
+      }
+      
+      res.send(result);
+
+      } catch (error) {
+        console.log(error);
+        res.send({"message": "Error getting movement patterns data"});
+      }
+    });
   
   module.exports = router;

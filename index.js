@@ -13,6 +13,7 @@ const  exercisesRoute = require("./routes/exercises");
 const  movementPatternsRoute = require("./routes/movementPatterns");
 const languagesRoute = require("./routes/languages");
 const blockPhaseRoute = require("./routes/blockphase");
+const musclesRoute = require("./routes/muscles");
 
 dotenv.config();
 
@@ -43,5 +44,6 @@ app.use("/api/exercises",exercisesRoute);
 app.use("/api/movementpatterns",movementPatternsRoute);
 app.use("/api/supportedLanguages",languagesRoute);
 app.use("/api/blockPhase",blockPhaseRoute);
+app.use("/api/muscles",musclesRoute);
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
