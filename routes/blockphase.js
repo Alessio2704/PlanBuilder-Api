@@ -1,63 +1,65 @@
 const router = require("express").Router();
 const verify = require("./verifyToken");
-const BlockPhase = require("../model/BlockPhase");
-  
-  router.post("/:id", verify, async (req, res) => {
-      try {
-          const newBlockPhase = new BlockPhase({
-              name: req.body.name,
-              translation: req.body.translation
+const TranslationItems = require("../model/TranslationItems");
+
+router.get("/", async (req, res) => {
+        
+  try {
+      const blockPhases = await TranslationItems.find({name: "blockphases"});
+
+      const languageCode = req.query.language;
+
+      result = [];
+
+      if (languageCode != "EN") {
+
+          const translationArray = blockPhases[0].translation.filter( (el) => {
+              return el.code === languageCode
           });
-  
-          const savedBlockPhase = await newBlockPhase.save();
-  
-          res.send({ message: "New block phase saved successfully"});
-    
-      } catch (error) {
-        console.log(error);
-        res.send({ message: "Error saving blockphase"});
-      }
-    });
 
-    router.get("/", async (req, res) => {
-        try {
-            const blockPhases = await BlockPhase.find({});
-            const languageCode = req.query.language;
+          if (translationArray.length > 0) { 
 
-            var result = [];
+              for (i in translationArray[0].values) {
 
-            for (i in blockPhases) { 
-
-                var name = "";
-
-                if (languageCode != "EN") {
-                 const translationArray = blockPhases[i].translation.filter(function (el) {
-                    return el.code === languageCode;
-                  });
-      
-                  if (translationArray.length > 0) {
-                    name = translationArray[0].translation;
-                  } else {
-                    name = blockPhases[i].name
+                  const item = {
+                      nameIdentifier: blockPhases[0].values[i],
+                      name: translationArray[0].values[i]
                   }
-                } else {
-                  name = blockPhases[i].name
-                }
-    
-                const phaseOBJ = {
-                  nameIdentifier: blockPhases[i].name,
-                  name: name
-                }
-    
-                result.push(phaseOBJ);
-            }
-    
-            res.send(result);
-      
-        } catch (error) {
-          console.log(error);
-          res.send({ message: "Error getting blockphases"});
-        }
-      });
+
+                  result.push(item);
+              }
+
+          } else {
+
+              for (i in translationArray[0].values) {
+
+                  const item = {
+                      nameIdentifier: blockPhases[0].values[i],
+                      name: blockPhases[0].values[i]
+                  }
+
+                  result.push(item);
+              }
+          }
+
+      } else {
+          for (i in translationArray[0].values) {
+
+              const item = {
+                  nameIdentifier: blockPhases[0].values[i],
+                  name: blockPhases[0].values[i]
+              }
+
+              result.push(item);
+          }
+      }
+
+      res.send(result);
+
+  } catch (error) {
+    console.log(error);
+    res.send({ message: "Error getting blockphases array"});
+  }
+});
 
     module.exports = router;

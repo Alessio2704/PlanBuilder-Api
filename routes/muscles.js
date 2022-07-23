@@ -1,31 +1,14 @@
 const router = require("express").Router();
 const verify = require("./verifyToken");
-const Muscles = require("../model/Muscles");
-  
-  router.post("/:id", verify, async (req, res) => {
-      try {
-          const newMuscles = new Muscles({
-              muscles: req.body.muscles,
-              translation: req.body.translation
-          });
-  
-          const savedMuscles= await newMuscles.save();
-  
-          res.send({ message: "New muscles array saved successfully"});
-    
-      } catch (error) {
-        console.log(error);
-        res.send({ message: "Error saving muscles array"});
-      }
-    });
+const TranslationItems = require("../model/TranslationItems");
 
     router.get("/", async (req, res) => {
         try {
-            const muscles = await Muscles.find({});
+            const muscles = await TranslationItems.find({name: "muscles"});
     
             const languageCode = req.query.language;
 
-            result = {};
+            result = [];
 
             if (languageCode != "EN") {
 
@@ -35,23 +18,46 @@ const Muscles = require("../model/Muscles");
 
                 if (translationArray.length > 0) { 
 
-                    result["muscles"] = muscles[0].muscles;
-                    result["musclesTranslation"] = translationArray[0].muscles;
+                    for (i in translationArray[0].values) {
+
+                        const item = {
+                            nameIdentifier: muscles[0].values[i],
+                            name: translationArray[0].values[i]
+                        }
+
+                        result.push(item);
+                    }
+
                 } else {
-                    result["muscles"] = muscles[0].muscles;
-                    result["musclesTranslation"] = muscles[0].muscles;
+
+                    for (i in translationArray[0].values) {
+
+                        const item = {
+                            nameIdentifier: muscles[0].values[i],
+                            name: muscles[0].values[i]
+                        }
+
+                        result.push(item);
+                    }
                 }
 
             } else {
-                result["muscles"] = muscles[0].muscles;
-                result["musclesTranslation"] = muscles[0].muscles;
+                for (i in translationArray[0].values) {
+
+                    const item = {
+                        nameIdentifier: muscles[0].values[i],
+                        name: muscles[0].values[i]
+                    }
+
+                    result.push(item);
+                }
             }
     
             res.send(result);
       
         } catch (error) {
           console.log(error);
-          res.send({ message: "Error getting muscles array"});
+          res.send({ message: "Error getting body parts array"});
         }
       });
 

@@ -1,27 +1,11 @@
 const router = require("express").Router();
 const verify = require("./verifyToken");
-const SkinfoldParts = require("../model/SkinfoldParts");
-  
-  router.post("/:id", verify, async (req, res) => {
-      try {
-          const newSkinfoldParts = new SkinfoldParts({
-              skinfoldParts: req.body.skinfoldParts,
-              translation: req.body.translation
-          });
-  
-          const savedSkinfoldParts= await newSkinfoldParts.save();
-  
-          res.send({ message: "New skinfold parts array saved successfully"});
-    
-      } catch (error) {
-        console.log(error);
-        res.send({ message: "Error saving skinfold parts array"});
-      }
-    });
+const TranslationItems = require("../model/TranslationItems");
 
     router.get("/", async (req, res) => {
+        
         try {
-            const skinfoldParts = await SkinfoldParts.find({});
+            const skinfolds = await TranslationItems.find({name: "skinfolds"});
     
             const languageCode = req.query.language;
 
@@ -29,17 +13,17 @@ const SkinfoldParts = require("../model/SkinfoldParts");
 
             if (languageCode != "EN") {
 
-                const translationArray = skinfoldParts[0].translation.filter( (el) => {
+                const translationArray = skinfolds[0].translation.filter( (el) => {
                     return el.code === languageCode
                 });
 
                 if (translationArray.length > 0) { 
 
-                    for (i in translationArray[0].skinfoldParts) {
+                    for (i in translationArray[0].values) {
 
                         const item = {
-                            nameIdentifier: skinfoldParts[0].skinfoldParts[i],
-                            name: translationArray[0].skinfoldParts[i]
+                            nameIdentifier: skinfolds[0].values[i],
+                            name: translationArray[0].values[i]
                         }
 
                         result.push(item);
@@ -47,11 +31,11 @@ const SkinfoldParts = require("../model/SkinfoldParts");
 
                 } else {
 
-                    for (i in translationArray[0].bodyParts) {
+                    for (i in translationArray[0].values) {
 
                         const item = {
-                            nameIdentifier: skinfoldParts[0].skinfoldParts[i],
-                            name: skinfoldParts[0].skinfoldParts[i]
+                            nameIdentifier: skinfolds[0].values[i],
+                            name: skinfolds[0].values[i]
                         }
 
                         result.push(item);
@@ -59,11 +43,11 @@ const SkinfoldParts = require("../model/SkinfoldParts");
                 }
 
             } else {
-                for (i in translationArray[0].bodyParts) {
+                for (i in translationArray[0].values) {
 
                     const item = {
-                        nameIdentifier: skinfoldParts[0].skinfoldParts[i],
-                        name: skinfoldParts[0].skinfoldParts[i]
+                        nameIdentifier: skinfolds[0].values[i],
+                        name: skinfolds[0].values[i]
                     }
 
                     result.push(item);
@@ -74,7 +58,7 @@ const SkinfoldParts = require("../model/SkinfoldParts");
       
         } catch (error) {
           console.log(error);
-          res.send({ message: "Error getting skinfold parts array"});
+          res.send({ message: "Error getting body parts array"});
         }
       });
 

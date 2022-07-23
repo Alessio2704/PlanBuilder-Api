@@ -1,27 +1,11 @@
 const router = require("express").Router();
 const verify = require("./verifyToken");
-const BodyParts = require("../model/BodyParts");
-  
-  router.post("/:id", verify, async (req, res) => {
-      try {
-          const newBodyParts = new BodyParts({
-              bodyParts: req.body.bodyParts,
-              translation: req.body.translation
-          });
-  
-          const savedBodyParts= await newBodyParts.save();
-  
-          res.send({ message: "New body parts array saved successfully"});
-    
-      } catch (error) {
-        console.log(error);
-        res.send({ message: "Error saving body parts array"});
-      }
-    });
+const TranslationItems = require("../model/TranslationItems");
 
     router.get("/", async (req, res) => {
+        
         try {
-            const bodyParts = await BodyParts.find({});
+            const bodyParts = await TranslationItems.find({name: "bodyparts"});
     
             const languageCode = req.query.language;
 
@@ -35,11 +19,11 @@ const BodyParts = require("../model/BodyParts");
 
                 if (translationArray.length > 0) { 
 
-                    for (i in translationArray[0].bodyParts) {
+                    for (i in translationArray[0].values) {
 
                         const item = {
-                            nameIdentifier: bodyParts[0].bodyParts[i],
-                            name: translationArray[0].bodyParts[i]
+                            nameIdentifier: bodyParts[0].values[i],
+                            name: translationArray[0].values[i]
                         }
 
                         result.push(item);
@@ -47,11 +31,11 @@ const BodyParts = require("../model/BodyParts");
 
                 } else {
 
-                    for (i in translationArray[0].bodyParts) {
+                    for (i in translationArray[0].values) {
 
                         const item = {
-                            nameIdentifier: bodyParts[0].bodyParts[i],
-                            name: bodyParts[0].bodyParts[i]
+                            nameIdentifier: bodyParts[0].values[i],
+                            name: bodyParts[0].values[i]
                         }
 
                         result.push(item);
@@ -59,11 +43,11 @@ const BodyParts = require("../model/BodyParts");
                 }
 
             } else {
-                for (i in translationArray[0].bodyParts) {
+                for (i in translationArray[0].values) {
 
                     const item = {
-                        nameIdentifier: bodyParts[0].bodyParts[i],
-                        name: bodyParts[0].bodyParts[i]
+                        nameIdentifier: bodyParts[0].values[i],
+                        name: bodyParts[0].values[i]
                     }
 
                     result.push(item);
