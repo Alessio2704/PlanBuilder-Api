@@ -30,7 +30,7 @@ const TranslationItems = require("../model/TranslationItems");
 
                 } else {
 
-                    for (i in translationArray[0].values) {
+                    for (i in muscles[0].values) {
 
                         const item = {
                             nameIdentifier: muscles[0].values[i],
@@ -42,7 +42,7 @@ const TranslationItems = require("../model/TranslationItems");
                 }
 
             } else {
-                for (i in translationArray[0].values) {
+                for (i in muscles[0].values) {
 
                     const item = {
                         nameIdentifier: muscles[0].values[i],

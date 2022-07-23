@@ -31,7 +31,7 @@ const TranslationItems = require("../model/TranslationItems");
 
                 } else {
 
-                    for (i in translationArray[0].values) {
+                    for (i in skinfolds[0].values) {
 
                         const item = {
                             nameIdentifier: skinfolds[0].values[i],
@@ -43,7 +43,7 @@ const TranslationItems = require("../model/TranslationItems");
                 }
 
             } else {
-                for (i in translationArray[0].values) {
+                for (i in skinfolds[0].values) {
 
                     const item = {
                         nameIdentifier: skinfolds[0].values[i],

@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
 
           } else {
 
-              for (i in translationArray[0].values) {
+              for (i in blockPhases[0].values) {
 
                   const item = {
                       nameIdentifier: blockPhases[0].values[i],
@@ -43,7 +43,7 @@ router.get("/", async (req, res) => {
           }
 
       } else {
-          for (i in translationArray[0].values) {
+          for (i in blockPhases[0].values) {
 
               const item = {
                   nameIdentifier: blockPhases[0].values[i],

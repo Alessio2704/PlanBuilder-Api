@@ -3,7 +3,7 @@ const verify = require("./verifyToken");
 const TranslationItems = require("../model/TranslationItems");
 
     router.get("/", async (req, res) => {
-        
+
         try {
             const bodyParts = await TranslationItems.find({name: "bodyparts"});
     
@@ -31,7 +31,7 @@ const TranslationItems = require("../model/TranslationItems");
 
                 } else {
 
-                    for (i in translationArray[0].values) {
+                    for (i in bodyParts[0].values) {
 
                         const item = {
                             nameIdentifier: bodyParts[0].values[i],
@@ -43,7 +43,7 @@ const TranslationItems = require("../model/TranslationItems");
                 }
 
             } else {
-                for (i in translationArray[0].values) {
+                for (i in bodyParts[0].values) {
 
                     const item = {
                         nameIdentifier: bodyParts[0].values[i],
