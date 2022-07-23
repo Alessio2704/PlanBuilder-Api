@@ -20,7 +20,7 @@ const MovementPattern = require("../model/MovementPattern");
       }
     });
 
-    router.put("/:id", verify, async (req, res) => {
+    router.get("/", async (req, res) => {
       try {
           
           const languageCode = req.query.language

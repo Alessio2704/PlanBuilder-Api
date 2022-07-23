@@ -16,6 +16,7 @@ const blockPhaseRoute = require("./routes/blockphase");
 const musclesRoute = require("./routes/muscles");
 const bodyPartsRoute = require("./routes/bodyparts");
 const skinfoldPartsRoute = require("./routes/skinfoldparts");
+const setTypesRoute = require("./routes/settypes");
 const translationItemsRoute = require("./routes/translationitems");
 
 dotenv.config();
@@ -46,10 +47,11 @@ app.use("/api/user/clients/images",imagesRoute);
 app.use("/api/exercises",exercisesRoute);
 app.use("/api/movementpatterns",movementPatternsRoute);
 app.use("/api/supportedLanguages",languagesRoute);
-app.use("/api/blockPhase",blockPhaseRoute);
+app.use("/api/blockphase",blockPhaseRoute);
 app.use("/api/muscles",musclesRoute);
 app.use("/api/bodyparts",bodyPartsRoute);
 app.use("/api/skinfoldparts",skinfoldPartsRoute);
+app.use("/api/settypes",setTypesRoute);
 app.use("/api/translationitems",translationItemsRoute);
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
